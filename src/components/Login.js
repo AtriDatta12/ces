@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import BackgroundVideo from './BackgroundVideo';
 
-// Keep only these essential styled components at the top
+// Styled Components
 const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -34,8 +34,9 @@ const LoginForm = styled.form`
   }
 `;
 
+
 const Input = styled.input`
-  font-family: "Play", sans-serif;
+  font-family: 'Play', sans-serif;
   width: 100%;
   padding: 12px;
   margin: 8px 0;
@@ -43,13 +44,13 @@ const Input = styled.input`
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
-  color: #333;
+  color: white;
   transition: all 0.3s ease;
 
   &::placeholder {
-    font-family: "Play", sans-serif;
+    font-family: 'Play', sans-serif;
     color: rgba(255, 255, 255, 0.8);
   }
 
@@ -59,36 +60,51 @@ const Input = styled.input`
     background: rgba(255, 255, 255, 0.3);
     box-shadow: 0 0 15px rgba(71, 118, 230, 0.1);
   }
+
+  @media (max-width: 768px) {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-size: 18px;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    &:focus {
+      background: rgba(255, 255, 255, 0.35);
+      border-color: rgba(255, 255, 255, 0.6);
+    }
+  }
 `;
 
 const FormContent = styled.div`
   padding: 40px;
 
   @media (max-width: 768px) {
+  background: rgba(255, 255, 255, 0.15);
     padding: 25px;
   }
 `;
-const GradientHeading = styled.h1`
-    -webkit-font-smoothing: antialiased;
-    font-family: "Play", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-    text-align: center;
-    animation: colorChange 8s linear infinite;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    font-size: 1.8em;
-    text-shadow: rgba(0, 0, 0, 0.2) 2px 2px 4px;
 
-    @keyframes colorChange {
-        0% { color: rgb(31, 224, 19); }
-        25% { color: rgb(0, 195, 255); }
-        50% { color: rgb(255, 0, 128); }
-        75% { color: rgb(255, 165, 0); }
-        100% { color: rgb(31, 224, 19); }
-    }
+const GradientHeading = styled.h1`
+  font-family: 'Play', sans-serif;
+  font-weight: 700;
+  text-align: center;
+  animation: colorChange 8s linear infinite;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  font-size: 1.8em;
+  text-shadow: rgba(0, 0, 0, 0.2) 2px 2px 4px;
+
+  @keyframes colorChange {
+    0% { color: rgb(31, 224, 19); }
+    25% { color: rgb(0, 195, 255); }
+    50% { color: rgb(255, 0, 128); }
+    75% { color: rgb(255, 165, 0); }
+    100% { color: rgb(31, 224, 19); }
+  }
 `;
 
 const GradientButton = styled.button`
@@ -97,7 +113,7 @@ const GradientButton = styled.button`
   margin-top: 20px;
   border: none;
   border-radius: 4px;
-  background: linear-gradient(90deg,rgb(54, 113, 250) 0%,rgb(250, 9, 9) 100%);
+  background: linear-gradient(90deg, rgb(54, 113, 250) 0%, rgb(250, 9, 9) 100%);
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -122,12 +138,12 @@ const PasswordWrapper = styled.div`
 const ToggleIcon = styled.div`
   position: absolute;
   right: 12px;
-  top: 50%;
-  transform: translateY(+5%);
+  top: 60%;
+  transform: translateY(-50%);
   cursor: pointer;
-  color: white;  // Changed from #4776E6 to white
+  color: white;
   display: flex;
-e  align-items: center;
+  align-items: center;
   justify-content: center;
   height: 100%;
   padding: 0 12px;
@@ -137,7 +153,7 @@ e  align-items: center;
 const FooterText = styled.p`
   color: white;
   margin: 0;
-  font-size: 14px;  // Fixed the font size from 2px to 14px
+  font-size: 14px;
 
   @media (max-width: 768px) {
     font-size: 12px;
@@ -154,12 +170,11 @@ const FormFooter = styled.div`
   background: rgba(255, 255, 255, 0.05);
 `;
 
-// Add these styled components with the other styled components at the top
 const Header = styled.header`
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.05);
   padding: 20px 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -177,12 +192,7 @@ const HeaderContent = styled.div`
 
   h1 {
     font-size: 28px;
-    background: linear-gradient(
-      to right,
-      #4776E6,
-      #8E54E9,
-      #4776E6
-    );
+    background: linear-gradient(to right, #4776e6, #8e54e9, #4776e6);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -205,106 +215,87 @@ const Footer = styled.footer`
   bottom: 0;
   left: 0;
   right: 0;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   z-index: 100;
 `;
 
-// In the Login component, add new state:
+const InputLabel = styled.label`
+  font-family: 'Play', sans-serif;
+  font-weight: 400;
+  color: white;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+`;
+
+// Main Component
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
   const [rollNumber, setRollNumber] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  // Add these validation functions after the styled components and before the Login component
   const validateRollNumber = (rollNumber) => {
     const rollNumberRegex = /^[0-9]{2}[A-Z]{2}[0-9]{2}[A-Z][0-9]{2}$/;
     return rollNumberRegex.test(rollNumber);
   };
-  
+
   const validatePhoneNumber = (phone) => {
     const phoneRegex = /^[6-9]\d{9}$/;
     return phoneRegex.test(phone);
   };
-  
-  // Update the handleSubmit function
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      
-      try {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: rollNumber,
-            password: password
-          }),
-        });
-  
-        const data = await response.json();
-  
-        if (response.ok) {
-          // Store student data and navigate
-          localStorage.setItem('studentData', JSON.stringify(data.student));
-          navigate('/questions');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://117.213.202.136:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: rollNumber,
+          password: password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('studentData', JSON.stringify(data.student));
+        navigate('/questions');
+      } else {
+        if (!validateRollNumber(rollNumber)) {
+          setError('Please enter a valid roll number (e.g., 21A81A0501)');
+        } else if (!validatePhoneNumber(password)) {
+          setError('Please enter a valid 10-digit phone number');
         } else {
-          // Only show validation errors if server returns an error
-          if (!validateRollNumber(rollNumber)) {
-            setError('Please enter a valid roll number (e.g., 21A81A0501)');
-          } else if (!validatePhoneNumber(password)) {
-            setError('Please enter a valid 10-digit phone number');
-          } else {
-            setError(data.message || 'Login failed');
-          }
+          setError(data.message || 'Login failed');
         }
-      } catch (error) {
-        console.error('Login error:', error);
-        setError('Network error occurred');
       }
-    };
+    } catch (error) {
+      console.error('Login error:', error);
+      setError('Network error occurred');
+    }
+  };
 
-  // Add this with other styled components at the top (before the Login component)
-  const InputLabel = styled.label`
-    font-family: "Play", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    color: white;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 18px;
-  `;
-
-  // In the return statement, fix the structure:
   return (
     <>
       <BackgroundVideo />
       <Header>
         <HeaderContent>
-          <h2 style={{
-            color: 'rgb(0, 195, 255)',
-            animation: '8s linear 0s infinite normal none running colorChange',
-            fontWeight: 800,
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            marginBottom: '2rem',
-            fontSize: '2.2em',
-            textShadow: 'rgba(0, 0, 0, 0.2) 2px 2px 4px'
-          }}>
-            COURSE END SURVEY
-          </h2>
+          <h1>COURSE END SURVEY</h1>
         </HeaderContent>
       </Header>
-      
+
       <LoginContainer>
         <LoginForm onSubmit={handleSubmit}>
           <FormContent>
             <GradientHeading>LOGIN</GradientHeading>
-            
+
             <div>
               <InputLabel>Roll Number</InputLabel>
               <Input
@@ -315,12 +306,12 @@ const Login = () => {
                 required
               />
             </div>
-  
+
             <PasswordWrapper>
-              <InputLabel>Phone Number</InputLabel>
+              <InputLabel>Password</InputLabel>
               <Input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter Phone Number"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -329,16 +320,14 @@ const Login = () => {
                 {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </ToggleIcon>
             </PasswordWrapper>
-  
-            <GradientButton type="submit">
-              Login
-            </GradientButton>
-  
+
+            <GradientButton type="submit">Login</GradientButton>
+
             {error && <ErrorMessage>{error}</ErrorMessage>}
           </FormContent>
         </LoginForm>
       </LoginContainer>
-  
+
       <Footer>
         <FooterText>
           © {new Date().getFullYear()} Developed by AtriDatta Lanka. All rights reserved.
