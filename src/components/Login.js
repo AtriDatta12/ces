@@ -249,24 +249,26 @@ const Login = () => {
     return phoneRegex.test(phone);
   };
 
-  import { supabase } from '../supabaseclient'; // make sure this import exists
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError('');
+    try {
+      const { data, error: loginError } = await supabase.auth.signInWithPassword({
+        email,        // ✅ Use email, not roll number
+        password,
+      });
 
-  const { data, error: loginError } = await supabase.auth.signInWithPassword({
-    rollno: rollNumber,   // 🔁 Use email here — Supabase needs email, not roll number
-    password: password,
-  });
-
-  if (loginError) {
-    setError(loginError.message);
-  } else {
-    localStorage.setItem('user', JSON.stringify(data.user));
-    navigate('/questions');
-  }
-};
+      if (loginError) {
+        setError(loginError.message);
+      } else {
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate('/questions');
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
+    }
+  };
 
 
   return (
