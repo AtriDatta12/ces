@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import BackgroundVideo from './BackgroundVideo';
-
+import { supabase } from '../supabaseClient';
 // Styled Components
 const LoginContainer = styled.div`
   display: flex;
