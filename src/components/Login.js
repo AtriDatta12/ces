@@ -254,7 +254,7 @@ const Login = () => {
     setError('');
   
     if (!validateRollNumber(rollNumber)) {
-      setError('Please enter a valid roll number (e.g., 21A81A0501)');
+      setError('Please enter a valid roll number (e.g., 21A81D0501)');
       return;
     }
   
