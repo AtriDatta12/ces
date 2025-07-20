@@ -239,7 +239,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const validateRollNumber = (rollNumber) => {
-    const rollNumberRegex = /^[0-9]{2}[A-Z]{2}[0-9]{2}[A-Z][0-9]{2}$/;
+    const rollNumberRegex = /^[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}$/;
     return rollNumberRegex.test(rollNumber);
   };
 
