@@ -230,8 +230,6 @@ const InputLabel = styled.label`
   margin-bottom: 5px;
   font-size: 18px;
 `;
-
-// Main Component
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rollNumber, setRollNumber] = useState('');
@@ -239,23 +237,28 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const validateRollNumber = (rollNumber) => {
-    const rollNumberRegex = /^[0-9]{2}[A-Z]{2}[0-9]{2}[A-Z][0-9]{2}$/;
-    return rollNumberRegex.test(rollNumber);
-  };
-
-  const validatePhoneNumber = (phone) => {
-    const phoneRegex = /^[6-9]\d{9}$/;
-    return phoneRegex.test(phone);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
+      // 1. Look up email from rollNumber
+      const { data: users, error: fetchError } = await supabase
+        .from('users') // 🔁 change 'users' to your actual table name
+        .select('email')
+        .eq('rollno', rollNumber) // 🔁 adjust field name if needed
+        .single();
+
+      if (fetchError || !users?.email) {
+        setError('Roll number not found.');
+        return;
+      }
+
+      const email = users.email;
+
+      // 2. Sign in with fetched email and entered password
       const { data, error: loginError } = await supabase.auth.signInWithPassword({
-        email,        // ✅ Use email, not roll number
+        email,
         password,
       });
 
@@ -266,6 +269,7 @@ const Login = () => {
         navigate('/questions');
       }
     } catch (err) {
+      console.error(err);
       setError('Login failed. Please try again.');
     }
   };
