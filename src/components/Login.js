@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import BackgroundVideo from './BackgroundVideo';
+import { supabase } from '../supabaseclient'; // make sure this import exists
+
 
 // Styled Components
 const LoginContainer = styled.div`
@@ -247,40 +249,25 @@ const Login = () => {
     return phoneRegex.test(phone);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  import { supabase } from '../supabaseclient'; // make sure this import exists
 
-    try {
-      const response = await fetch('https://pekxxocigmfuogifxgnj.supabase.co/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: rollNumber,
-          password: password,
-        }),
-      });
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
 
-      const data = await response.json();
+  const { data, error: loginError } = await supabase.auth.signInWithPassword({
+    email: rollNumber,   // 🔁 Use email here — Supabase needs email, not roll number
+    password: password,
+  });
 
-      if (response.ok) {
-        localStorage.setItem('studentData', JSON.stringify(data.student));
-        navigate('/questions');
-      } else {
-        if (!validateRollNumber(rollNumber)) {
-          setError('Please enter a valid roll number (e.g., 21A81A0501)');
-        } else if (!validatePhoneNumber(password)) {
-          setError('Please enter a valid 10-digit phone number');
-        } else {
-          setError(data.message || 'Login failed');
-        }
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Network error occurred');
-    }
-  };
+  if (loginError) {
+    setError(loginError.message);
+  } else {
+    localStorage.setItem('user', JSON.stringify(data.user));
+    navigate('/questions');
+  }
+};
+
 
   return (
     <>
