@@ -249,36 +249,35 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError('');
+  
+    // Validate roll number and password before request
+    if (!validateRollNumber(rollNumber)) {
+      setError('Please enter a valid roll number (e.g., 21A81A0501)');
+      return;
+    }
+  
+    if (!validatePhoneNumber(password)) {
+      setError('Please enter a valid 10-digit phone number');
+      return;
+    }
+  
     try {
-      const response = await fetch('https://pekxxocigmfuogifxgnj.supabase.co/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: rollNumber,
-          password: password,
-        }),
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: rollNumber, // use rollNumber only if it's actually an email in your Supabase users table
+        password: password,
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem('studentData', JSON.stringify(data.student));
-        navigate('/questions');
+  
+      if (error) {
+        console.error('Supabase login error:', error);
+        setError(error.message || 'Login failed');
       } else {
-        if (!validateRollNumber(rollNumber)) {
-          setError('Please enter a valid roll number (e.g., 21A81A0501)');
-        } else if (!validatePhoneNumber(password)) {
-          setError('Please enter a valid 10-digit phone number');
-        } else {
-          setError(data.message || 'Login failed');
-        }
+        localStorage.setItem('studentData', JSON.stringify(data.user));
+        navigate('/questions');
       }
-    } catch (error) {
-      console.error('Login error:', error);
-      setError('Network error occurred');
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      setError('Unexpected error occurred');
     }
   };
 
