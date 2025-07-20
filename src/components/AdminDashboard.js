@@ -282,7 +282,7 @@ const AdminDashboard = () => {
         console.log('Fetching subjects with params:', params);
 
         const response = await fetch(
-          `http://117.213.202.136:5000/api/auth/questions?branch=${encodeURIComponent(params.branch)}&year=${encodeURIComponent(params.year)}&sem=${encodeURIComponent(sem)}`,
+          `https://pekxxocigmfuogifxgnj.supabase.co/api/auth/questions?branch=${encodeURIComponent(params.branch)}&year=${encodeURIComponent(params.year)}&sem=${encodeURIComponent(sem)}`,
           {
             method: 'GET',
             headers: {
