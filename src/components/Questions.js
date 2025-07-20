@@ -321,7 +321,7 @@ const Questions = () => {
     const checkPreviousSubmission = async () => {
       try {
         const response = await fetch(
-          `http://117.213.202.136:5000/api/auth/check-submission?studentId=${studentData.rollno}&semester=${studentData.semester}&year=${studentData.year}`,
+          `/api/auth/check-submission?studentId=${studentData.rollno}&semester=${studentData.semester}&year=${studentData.year}`,
           {
             headers: {
               'Content-Type': 'application/json',
