@@ -246,10 +246,10 @@ const Login = () => {
     const phoneRegex = /^[6-9]\d{9}$/;
     return phoneRegex.test(phone);
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-  
+
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
@@ -261,9 +261,9 @@ const Login = () => {
           password: password,
         }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         localStorage.setItem('studentData', JSON.stringify(data.student));
         navigate('/questions');
@@ -281,7 +281,7 @@ const Login = () => {
       setError('Network error occurred');
     }
   };
-  
+
   return (
     <>
       <BackgroundVideo />
