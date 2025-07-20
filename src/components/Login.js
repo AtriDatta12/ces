@@ -253,7 +253,6 @@ const Login = () => {
     e.preventDefault();
     setError('');
   
-    // Validate roll number and password before request
     if (!validateRollNumber(rollNumber)) {
       setError('Please enter a valid roll number (e.g., 21A81A0501)');
       return;
@@ -265,21 +264,24 @@ const Login = () => {
     }
   
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: rollNumber, // use rollNumber only if it's actually an email in your Supabase users table
-        password: password,
-      });
+      const { data, error } = await supabase
+        .from('students')
+        .select('*')
+        .eq('rollno', rollNumber)
+        .eq('phonenumber', password)
+        .single(); // ensures only one result
   
-      if (error) {
-        console.error('Supabase login error:', error);
-        setError(error.message || 'Login failed');
+      if (error || !data) {
+        console.error('Login failed:', error);
+        setError('Invalid roll number or password');
       } else {
-        localStorage.setItem('studentData', JSON.stringify(data.user));
+        // Successful login
+        localStorage.setItem('studentData', JSON.stringify(data));
         navigate('/questions');
       }
     } catch (err) {
       console.error('Unexpected error:', err);
-      setError('Unexpected error occurred');
+      setError('Something went wrong');
     }
   };
   
