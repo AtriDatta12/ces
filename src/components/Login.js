@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import BackgroundVideo from './BackgroundVideo';
-import { supabase } from '../supabaseClient';
+import { supabase } from '../supabaseClient'; // make sure the path is correct
+
 // Styled Components
 const LoginContainer = styled.div`
   display: flex;
@@ -246,6 +247,7 @@ const Login = () => {
     const phoneRegex = /^[6-9]\d{9}$/;
     return phoneRegex.test(phone);
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -280,6 +282,7 @@ const Login = () => {
       setError('Unexpected error occurred');
     }
   };
+  
 
   return (
     <>
