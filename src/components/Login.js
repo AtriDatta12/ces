@@ -256,7 +256,7 @@ const handleSubmit = async (e) => {
   setError('');
 
   const { data, error: loginError } = await supabase.auth.signInWithPassword({
-    email: rollNumber,   // 🔁 Use email here — Supabase needs email, not roll number
+    rollno: rollNumber,   // 🔁 Use email here — Supabase needs email, not roll number
     password: password,
   });
 
